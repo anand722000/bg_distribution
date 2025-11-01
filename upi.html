@@ -7,58 +7,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-  body {
-    background-color: #f8f9fa;
-    font-family: 'Segoe UI', sans-serif;
-  }
-
-  .step {
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-
-  .qr-image {
-    max-width: 250px;
-    margin: 20px auto;
-    display: block;
-  }
-
-  .cart-summary {
-    background-color: #f1f1f1;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 15px;
-  }
-
-  .cart-item {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-    font-size: 1rem;
-  }
-
-  .cart-item:last-child {
-    border-bottom: none;
-  }
-
-  .cart-item strong {
-    color: #333;
-  }
-
-  @media (max-width: 768px) {
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .step {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
     .qr-image {
-      max-width: 180px;
+      max-width: 250px;
+      margin: 20px auto;
+      display: block;
     }
-
+    .cart-summary {
+      background-color: #f1f1f1;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
     .cart-item {
-      font-size: 0.95rem;
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+      font-size: 1rem;
     }
-
-
-  }
-</style>
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    .cart-item strong {
+      color: #333;
+    }
+    @media (max-width: 768px) {
+      .qr-image {
+        max-width: 180px;
+      }
+      .cart-item {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
 </head>
 <body>
 <div class="container py-5">
@@ -70,87 +60,76 @@
     <p>Use any UPI app (PhonePe, Google Pay, Paytm, etc.) to scan the QR code and make the payment.</p>
     <img src="./images/upi_qr.jpg" class="qr-image">
 
-
-    
-
-<div style="background:#fff; border-radius:8px; padding:20px; max-width:400px; margin:20px auto; box-shadow:0 0 10px rgba(0,0,0,0.1);">
-  <div style="font-weight:bold; text-align:center; margin-bottom:15px; font-size:1.2rem;">Cart Items:</div>
-
-  <div id="cart" style="text-align:left; font-size:1rem; margin-bottom:10px;"></div>
-
-  <div style="font-weight:bold; text-align:center; margin-top:15px; font-size:1.1rem; background-color:#f8bbd0; padding:10px; border-radius:6px;">
-    Total Amount: ₹<span id="total">0</span>
+    <div style="background:#fff; border-radius:8px; padding:20px; max-width:400px; margin:20px auto; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+      <div style="font-weight:bold; text-align:center; margin-bottom:15px; font-size:1.2rem;">Cart Items:</div>
+      <div id="cart" style="text-align:left; font-size:1rem; margin-bottom:10px;"></div>
+      <div style="font-weight:bold; text-align:center; margin-top:15px; font-size:1.1rem; background-color:#f8bbd0; padding:10px; border-radius:6px;">
+        Total Amount: ₹<span id="total">0</span>
+      </div>
+    </div>
   </div>
-</div>
-
-
-  </div>
-
 
   <div class="step">
     <h4>Step 2: Share Payment Proof</h4>
     <p>After completing the payment, please share a screenshot of the transaction on WhatsApp.</p>
-     <!-- Customer Details -->
-  <div class="card step-card p-3">
-    <h4 class="mb-3"><span class="badge bg-primary me-2">Your Details</span></h4>
-    <div class="row g-3">
-      <div class="col-md-4">
-        <input type="text" class="form-control" id="userName" placeholder="Enter your name">
-      </div>
-      <div class="col-md-4">
-        <input type="text" class="form-control" id="userMobile" placeholder="Enter mobile number">
-      </div>
-      <div class="col-md-4">
-        <input type="text" class="form-control" id="userAddress" placeholder="Enter address">
+    <div class="card step-card p-3">
+      <h4 class="mb-3"><span class="badge bg-primary me-2">Your Details</span></h4>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <input type="text" class="form-control" id="userName" placeholder="Enter your name">
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control" id="userMobile" placeholder="Enter mobile number">
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control" id="userAddress" placeholder="Enter address">
+        </div>
       </div>
     </div>
-  </div>
-    <a href="https://wa.me/917888788135" target="_blank" class="btn btn-success">Share on WhatsApp</a>
+    <a href="#" id="whatsappLink" target="_blank" class="btn btn-success mt-3">Share on WhatsApp</a>
   </div>
 
   <div class="step">
     <h4>Step 3: Get Your Receipt</h4>
     <p>Once we verify your payment, we will send you a receipt via WhatsApp or email.</p>
   </div>
-
 </div>
-
-
-
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const cartData = JSON.parse(localStorage.getItem('cart')) || [];
     const total = localStorage.getItem('cartTotal') || '0';
 
+    // Show cart items and total on page
     document.getElementById('total').innerText = total;
-
     const cartDisplay = cartData.map(item => {
       return `${item.name} (x${item.quantity}) - ₹${item.price * item.quantity}`;
     }).join('<br>');
-
     document.getElementById('cart').innerHTML = cartDisplay;
 
-    document.getElementById('whatsappLink').addEventListener('click', function () {
+    // WhatsApp share
+    document.getElementById('whatsappLink').addEventListener('click', function (e) {
+      e.preventDefault();
       const name = document.getElementById('userName').value.trim();
       const mobile = document.getElementById('userMobile').value.trim();
       const address = document.getElementById('userAddress').value.trim();
 
+      if (!name || !mobile || !address) {
+        alert("Please fill in all details before sharing on WhatsApp.");
+        return;
+      }
+
       const cartMessage = cartData.map(item => {
         return `• ${item.name} (x${item.quantity}) - ₹${item.price * item.quantity}`;
-      }).join('\n');
+      }).join('\\n');
 
-      const message = `Hello, I have made the payment.\n\nName: ${name}\nMobile: ${mobile}\nAddress: ${address}\n\nCart Items:\n${cartMessage}\n\nTotal: ₹${total}`;
-
+      const message = `Hello, I have made the payment.\\n\\nName: ${name}\\nMobile: ${mobile}\\nAddress: ${address}\\n\\nCart Items:\\n${cartMessage}\\n\\nTotal: ₹${total}`;
       const encodedMessage = encodeURIComponent(message);
       const whatsappURL = `https://wa.me/917888788135?text=${encodedMessage}`;
-
-      this.href = whatsappURL;
+      window.open(whatsappURL, '_blank');
     });
   });
 </script>
-
 
 </body>
 </html>
