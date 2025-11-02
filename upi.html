@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,9 +55,11 @@
   <p class="text-center lead" style="color: rgb(255, 0, 0);">Please follow the steps below to complete your payment and receive your receipt.</p>
 
   <div class="step">
-    <h4>Step 1: Scan the QR Code</h4>
-    <p>Use any UPI app (PhonePe, Google Pay, Paytm, etc.) to scan the QR code and make the payment.</p>
-    <img src="./images/upi_qr.jpg" class="qr-image">
+    <h4>Step 1: Make Payment</h4>
+    <p>Use any UPI app (PhonePe, Google Pay, Paytm, etc.) to scan the QR code or click the button below to pay directly.</p>
+    <img src="./images/upi_qr.jpg" class="qr-image" alt="UPI QR Code">
+
+    <a id="upiPayButton" class="btn btn-primary d-block mx-auto mt-3" href="#">Click to Pay via UPI</a>
 
     <div style="background:#fff; border-radius:8px; padding:20px; max-width:400px; margin:20px auto; box-shadow:0 0 10px rgba(0,0,0,0.1);">
       <div style="font-weight:bold; text-align:center; margin-bottom:15px; font-size:1.2rem;">Cart Items:</div>
@@ -99,15 +100,17 @@
   document.addEventListener('DOMContentLoaded', function () {
     const cartData = JSON.parse(localStorage.getItem('cart')) || [];
     const total = localStorage.getItem('cartTotal') || '0';
+    const upiID = "admin@upi";
 
-    // Show cart items and total on page
     document.getElementById('total').innerText = total;
     const cartDisplay = cartData.map(item => {
       return `${item.name} (x${item.quantity}) - ₹${item.price * item.quantity}`;
     }).join('<br>');
     document.getElementById('cart').innerHTML = cartDisplay;
 
-    // WhatsApp share
+    const upiLink = `upi://pay?pa=${upiID}&pn=Admin&am=${total}&cu=INR`;
+    document.getElementById('upiPayButton').setAttribute('href', upiLink);
+
     document.getElementById('whatsappLink').addEventListener('click', function (e) {
       e.preventDefault();
       const name = document.getElementById('userName').value.trim();
@@ -121,9 +124,18 @@
 
       const cartMessage = cartData.map(item => {
         return `• ${item.name} (x${item.quantity}) - ₹${item.price * item.quantity}`;
-      }).join('\\n');
+      }).join('');
 
-      const message = `Hello, I have made the payment.\\n\\nName: ${name}\\nMobile: ${mobile}\\nAddress: ${address}\\n\\nCart Items:\\n${cartMessage}\\n\\nTotal: ₹${total}`;
+      const message = `Hello, I have made the payment.
+
+Name: ${name}
+Mobile: ${mobile}
+Address: ${address}
+
+Cart Items:
+${cartMessage}
+
+Total: ₹${total}`;
       const encodedMessage = encodeURIComponent(message);
       const whatsappURL = `https://wa.me/917888788135?text=${encodedMessage}`;
       window.open(whatsappURL, '_blank');
