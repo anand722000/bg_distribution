@@ -7,6 +7,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
+
+/* Notification Styles */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(90deg, #ff4d4d, #ff6a6a);
+    color: #fff;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 9999;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    display: flex;
+    align-items: center;
+       width: 300px;
+}
+
+/* Visible state for slide-in */
+.notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Close Button */
+.notification button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .notification {
+        width: 90%;
+        right: 5%;
+        font-size: 14px;
+    }
+}
+
+
+
+
+
+
+
+    
     body {
       background-color: #f8f9fa;
       font-family: 'Segoe UI', sans-serif;
@@ -78,7 +131,7 @@
     color: #fff;
     background: #ff4d4d;
     padding: 8px;
-    border-radius: 4px;
+    border-radius: 5px;
     overflow: hidden;
     white-space: nowrap;
     box-sizing: border-box;
@@ -102,17 +155,50 @@
 
 
 
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.contact-item a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.contact-item {
+    font-size: 16px;
+}
+
+@media (max-width: 600px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+    
+
 
     
   </style>
 </head>
 <body>
 
-<div class="moving-text">
-    <marquee direction="right" behavior="alternate" 
-        style="border:black 2px solid">
-        ⚠️ <strong>Note:</strong> "Click to Pay via UPI" is under development. Please scan the QR code and share details via WhatsApp.
-    </marquee>
+<div class="notification" id="upiNotification">
+    <span>⚠️ UPI is not working. Please pay by scanning <b>QR</b>.</span>
+    <button onclick="closeNotification()">✖</button>
 </div>
 
   
@@ -236,6 +322,50 @@ Total: ₹${total}`;
       });
     }
   });
+
+
+
+const notif = document.getElementById('upiNotification');
+
+// Show notification with slide-in
+window.addEventListener('load', () => {
+    notif.classList.add('show');
+    // Auto-hide after 10 seconds
+    setTimeout(() => closeNotification(), 10000);
+});
+
+// Close on button click
+function closeNotification() {
+    notif.classList.remove('show');
+    setTimeout(() => notif.style.display = 'none', 600);
+}
+
+// Hide on scroll
+window.addEventListener('scroll', () => {
+    if (notif.classList.contains('show')) {
+        closeNotification();
+    }
+});
+
+
+
+  
 </script>
 </body>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="contact-item">
+            📞 Phone: 7888788135</a>
+        </div>
+        <div class="contact-item">
+            ✉️ Email: anand722000@gmail.com</a>
+        </div>
+    </div>
+    <p class="copyright">&copy; 2025 Folk_Dev_Team. All rights reserved.</p>
+</footer>
+
+
+
+  
 </html>
