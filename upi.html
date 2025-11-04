@@ -68,9 +68,54 @@
         font-size: 0.95rem;
       }
     }
+
+
+
+.moving-text {
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background: #ff4d4d;
+    padding: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.moving-text strong {
+    color: #fff700;
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+@media (max-width: 768px) {
+    .moving-text {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+
+
+
+    
   </style>
 </head>
 <body>
+
+<div class="moving-text">
+    <marquee direction="right" behavior="alternate" 
+        style="border:black 2px solid">
+        ⚠️ <strong>Note:</strong> "Click to Pay via UPI" is under development. Please scan the QR code and share details via WhatsApp.
+    </marquee>
+</div>
+
+  
 <div class="container py-5">
   <h2 class="text-center text-success mb-4">🙏 Thank You for Your Order!</h2>
   <p class="text-center lead text-danger">Please follow the steps below to complete your payment and receive your receipt.</p>
@@ -78,7 +123,6 @@
   <div class="step">
     <h4>Step 1: Make Payment</h4>
      <p>Use any UPI app (PhonePe, Google Pay, Paytm, etc.) to scan the <b>QR code</b>. <br>
-    <b>Note</b> : "Click to Pay via UPI" will not work, Devlopment is in progress... Please Scan the QR Code and Send details over WhatsApp. </p>
     <img src="./images/upi_qr.jpg" class="qr-image" alt="UPI QR Code">
 
     <a id="upiPayButton" class="btn btn-gradient d-block mx-auto mt-3" href="#" target="_blank">Click to Pay via UPI</a>
